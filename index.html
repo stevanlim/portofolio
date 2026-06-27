@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stevan Lim | Portfolio - Web & App Developer</title>
+    <meta name="description"
+        content="Portfolio professional Stevan Lim, S.Kom. - Web & App Developer, Programmer, dan Spesialis SvelteKit & NativeScript lulusan STMIK Pontianak.">
+
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Anime.js Animation Engine -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        border: "hsl(var(--border))",
+                        input: "hsl(var(--input))",
+                        ring: "hsl(var(--ring))",
+                        background: "hsl(var(--background))",
+                        foreground: "hsl(var(--foreground))",
+                        primary: {
+                            DEFAULT: "hsl(var(--primary))",
+                            foreground: "hsl(var(--primary-foreground))",
+                        },
+                        secondary: {
+                            DEFAULT: "hsl(var(--secondary))",
+                            foreground: "hsl(var(--secondary-foreground))",
+                        },
+                        muted: {
+                            DEFAULT: "hsl(var(--muted))",
+                            foreground: "hsl(var(--muted-foreground))",
+                        },
+                        accent: {
+                            DEFAULT: "hsl(var(--accent))",
+                            foreground: "hsl(var(--accent-foreground))",
+                        },
+                        card: {
+                            DEFAULT: "hsl(var(--card))",
+                            foreground: "hsl(var(--card-foreground))",
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Styles for Shadcn UI look and Fade Effect -->
+    <style>
+        :root {
+            --background: 224 71% 4%;
+            --foreground: 213 31% 91%;
+            --card: 224 71% 4%;
+            --card-foreground: 213 31% 91%;
+            --popover: 224 71% 4%;
+            --popover-foreground: 215 20.2% 65.1%;
+            --primary: 217.2 91.2% 59.8%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 222.2 47.4% 11.2%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 223 47% 11%;
+            --muted-foreground: 215.4 16.3% 56.9%;
+            --accent: 216 34% 17%;
+            --accent-foreground: 210 40% 98%;
+            --destructive: 0 63% 31%;
+            --destructive-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 224.3 76.3% 48%;
+            --radius: 0.75rem;
+        }
+
+        body {
+            background-color: #030712;
+            /* Tailwind gray-950 */
+            color: #f3f4f6;
+            /* Tailwind gray-100 */
+        }
+
+        /* Fade animation classes */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-in-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #090d16;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+
+        /* Glowing Effects */
+        .glow-blue {
+            box-shadow: 0 0 40px -10px rgba(59, 130, 246, 0.2);
+        }
+
+        .glow-hover:hover {
+            box-shadow: 0 0 30px -5px rgba(59, 130, 246, 0.35);
+        }
+
+        /* Grid background pattern */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+        }
+
+        /* GitHub Tooltip */
+        .github-tooltip {
+            visibility: hidden;
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+        }
+
+        .github-cell:hover .github-tooltip {
+            visibility: visible;
+        }
+
+        /* Feathered edge/vignette effect on images to blend with dark background */
+        .image-vignette {
+            -webkit-mask-image: radial-gradient(ellipse closest-side at center, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 85%);
+            mask-image: radial-gradient(ellipse closest-side at center, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 85%);
+            filter: brightness(0.85) contrast(1.05) saturate(0.9);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+        }
+
+        .image-vignette:hover {
+            filter: brightness(0.95) contrast(1.05) saturate(1);
+        }
+
+        /* Special vignette for the landscape campus image to shift focus and keep the logo/text visible */
+        .campus-vignette {
+            -webkit-mask-image: radial-gradient(ellipse closest-side at 60% 50%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 95%);
+            mask-image: radial-gradient(ellipse closest-side at 60% 50%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 95%);
+            filter: brightness(0.85) contrast(1.05) saturate(0.9);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+        }
+
+        .campus-vignette:hover {
+            filter: brightness(0.95) contrast(1.05) saturate(1);
+        }
+
+        .hero-animate {
+            opacity: 0;
+        }
+
+        .profile-fade {
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        /* Anime.js inspired background blob morphing animations */
+        @keyframes blob-morph {
+            0% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+
+            50% {
+                border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+            }
+
+            100% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+        }
+
+        .animate-blob-morph {
+            animation: blob-morph 4.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-slow {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.2;
+            }
+
+            50% {
+                transform: scale(1.08);
+                opacity: 0.35;
+            }
+        }
+
+        .animate-pulse-slow {
+            animation: pulse-slow 3.5s ease-in-out infinite;
+        }
+
+        /* Neon RGB Glowing Logo Effect */
+        @keyframes rgbGlow {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 2px rgba(59, 130, 246, 0.65)) drop-shadow(0 0 8px rgba(59, 130, 246, 0.25));
+            }
+
+            33% {
+                filter: drop-shadow(0 0 2px rgba(168, 85, 247, 0.65)) drop-shadow(0 0 8px rgba(168, 85, 247, 0.25));
+            }
+
+            66% {
+                filter: drop-shadow(0 0 2px rgba(236, 72, 153, 0.65)) drop-shadow(0 0 8px rgba(236, 72, 153, 0.25));
+            }
+        }
+
+        @keyframes logoShine {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 300% 50%;
+            }
+        }
+
+        .logo-neon {
+            background: linear-gradient(to right, #60a5fa, #c084fc, #f472b6, #60a5fa);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: logoShine 6s linear infinite, rgbGlow 6s ease-in-out infinite;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+
+        .logo-neon:hover {
+            transform: scale(1.06) rotate(-1deg);
+            filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 12px rgba(168, 85, 247, 0.65)) drop-shadow(0 0 20px rgba(236, 72, 153, 0.4));
+        }
+
+        .logo-neon:active {
+            transform: scale(0.93) rotate(1deg);
+            filter: drop-shadow(0 0 6px rgba(236, 72, 153, 0.95)) brightness(1.3);
+        }
+
+        @keyframes spin-slow {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .animate-spin-slow {
+            animation: spin-slow 10s linear infinite;
+        }
+
+        /* Invert dark logos for dark mode visibility */
+        img[alt="Express.js"],
+        img[alt="Express"] {
+            filter: invert(1) brightness(2.5);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased text-zinc-100 overflow-x-hidden">
+
+    <!-- Glowing Background Blob -->
+    <div
+        class="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[120px] pointer-events-none z-[-1]">
+    </div>
+    <div
+        class="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/10 blur-[120px] pointer-events-none z-[-1]">
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full border-b border-zinc-800/80 bg-zinc-950/70 backdrop-blur-md">
+        <div class="container mx-auto px-4 md:px-8 flex h-16 items-center justify-between">
+            <a href="#home" class="flex items-center space-x-2">
+                <span class="logo-neon text-xl font-extrabold tracking-tight">Portfolio.ku</span>
+            </a>
+
+            <!-- Desktop Navbar -->
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-zinc-400">
+                <a href="#home" class="hover:text-blue-400 transition-colors">Home</a>
+                <a href="#about" class="hover:text-blue-400 transition-colors">Tentang</a>
+                <a href="#education" class="hover:text-blue-400 transition-colors">Akademik</a>
+                <a href="#skills" class="hover:text-blue-400 transition-colors">Keahlian</a>
+                <a href="#projects" class="hover:text-blue-400 transition-colors">Proyek</a>
+                <a href="#contact" class="hover:text-blue-400 transition-colors">Kontak</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <a href="https://github.com/stevanlim" target="_blank" rel="noopener noreferrer"
+                    class="hidden sm:inline-flex items-center space-x-1.5 text-sm bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-md px-3 py-1.5 transition-colors font-medium text-white">
+                    <svg class="w-4 h-4 text-white fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.577.688.479C19.138 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                    </svg>
+                    <span>GitHub</span>
+                </a>
+
+                <!-- Mobile Navigation Menu Toggle -->
+                <button id="mobile-menu-btn"
+                    class="md:hidden p-2 rounded-md hover:bg-zinc-900 border border-zinc-800 transition-colors"
+                    aria-label="Toggle Menu">
+                    <i data-lucide="menu" id="menu-icon" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navbar -->
+        <div id="mobile-menu" class="hidden md:hidden border-b border-zinc-800 bg-zinc-950 px-4 py-4 space-y-3">
+            <a href="#home" class="block text-zinc-300 hover:text-blue-400 py-1 transition-colors">Home</a>
+            <a href="#about" class="block text-zinc-300 hover:text-blue-400 py-1 transition-colors">Tentang</a>
+            <a href="#education" class="block text-zinc-300 hover:text-blue-400 py-1 transition-colors">Akademik</a>
+            <a href="#skills" class="block text-zinc-300 hover:text-blue-400 py-1 transition-colors">Keahlian</a>
+            <a href="#projects" class="block text-zinc-300 hover:text-blue-400 py-1 transition-colors">Proyek</a>
+            <a href="#contact" class="block text-zinc-300 hover:text-blue-400 py-1 transition-colors">Kontak</a>
+            <div class="pt-2">
+                <a href="https://github.com/stevanlim" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex w-full items-center justify-center space-x-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-md py-2 transition-colors text-white">
+                    <svg class="w-4 h-4 text-white fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.577.688.479C19.138 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                    </svg>
+                    <span>GitHub Profile</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home"
+        class="relative py-20 md:py-32 bg-grid-pattern overflow-hidden flex items-center justify-center min-h-[90vh]">
+        <!-- Anime.js interactive grid background -->
+        <div id="hero-grid" class="absolute inset-0 z-0 opacity-15 pointer-events-auto"></div>
+
+        <div class="container mx-auto px-4 md:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left: Text content -->
+                <div class="lg:col-span-7 text-left space-y-6 flex flex-col items-start justify-center">
+                    <span
+                        class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full border border-blue-500/20 bg-blue-500/10 text-xs font-semibold text-blue-400 tracking-wide uppercase mb-2 animate-pulse hero-animate">
+                        <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                        <span>Open for Projects & Collaborations</span>
+                    </span>
+
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight hero-animate">
+                        Hi, Saya <br class="hidden sm:inline" /><span
+                            class="bg-gradient-to-r from-blue-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent">Stevan
+                            Lim, S.Kom.</span>
+                    </h1>
+
+                    <!-- Typewriter / Subtitle role -->
+                    <p class="text-xl sm:text-2xl text-zinc-300 font-medium h-8 hero-animate">
+                        <span id="role-text" class="border-r-2 border-blue-500 pr-1"></span>
+                    </p>
+
+                    <p class="text-base sm:text-lg text-zinc-400 max-w-xl leading-relaxed hero-animate">
+                        Seorang profesional Programmer, Web & App Developer lulusan STMIK Pontianak yang berdedikasi
+                        menciptakan
+                        aplikasi web interaktif berkinerja tinggi serta aplikasi mobile native/cross-platform.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center gap-4 pt-4 w-full sm:w-auto hero-animate">
+                        <a href="#projects"
+                            class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-blue-500/20 transition-all">
+                            <span>Lihat Proyek Saya</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#contact"
+                            class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 font-semibold px-6 py-3 rounded-lg transition-colors">
+                            <span>Hubungi Saya</span>
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Profile Image & Animated Background -->
+                <div class="lg:col-span-5 flex justify-center relative hero-animate">
+                    <div
+                        class="relative w-[320px] h-[380px] sm:w-[380px] sm:h-[450px] flex items-center justify-center">
+                        <!-- Animated Bold Blue Background Shape (aligned behind head & chest) -->
+                        <div
+                            class="absolute top-[8%] w-[240px] h-[240px] sm:w-[300px] sm:h-[300px] bg-gradient-to-tr from-blue-600 via-blue-500 to-indigo-600 rounded-full animate-blob-morph shadow-[0_0_50px_rgba(59,130,246,0.5)]">
+                        </div>
+                        <div
+                            class="absolute top-[8%] w-[240px] h-[240px] sm:w-[300px] sm:h-[300px] bg-blue-400/20 rounded-full animate-pulse-slow blur-md">
+                        </div>
+
+                        <!-- Stevan Lim's Portrait Photo -->
+                        <img src="static/IMG_6910.PNG" alt="Stevan Lim, S.Kom."
+                            class="relative z-10 w-[95%] h-[95%] object-contain profile-fade drop-shadow-[0_10px_30px_rgba(59,130,246,0.3)] filter brightness-105 contrast-100 hover:scale-[1.03] transition-transform duration-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid: Zigzag Layout (1-4) -->
+    <main class="space-y-32 py-16">
+
+        <!-- 1. ZIGZAG SECTION: About Me & GitHub Stats (Image Left, Text Right) -->
+        <section id="about" class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left: Profile Photo (1) -->
+                <div class="lg:col-span-5 flex justify-center lg:justify-start order-1 lg:order-1 fade-in-element">
+                    <img src="static/WhatsApp Image 2026-06-27 at 20.08.59.jpeg" alt="Stevan Lim Portrait"
+                        class="w-[400px] h-[480px] object-cover image-vignette hover:scale-[1.02]">
+                </div>
+
+                <!-- Right: Bio & GitHub Contributions -->
+                <div class="lg:col-span-7 space-y-6 order-2 lg:order-2 fade-in-element">
+                    <div class="space-y-2">
+                        <h2 class="text-xs font-semibold tracking-wider text-blue-500 uppercase">Profil Profesional</h2>
+                        <h3 class="text-3xl font-bold tracking-tight">Tentang Stevan Lim</h3>
+                    </div>
+
+                    <p class="text-zinc-400 leading-relaxed">
+                        Halo! Saya adalah seorang Programmer dan Developer Web & Aplikasi yang berkomitmen penuh dalam
+                        membangun solusi digital inovatif. Saya memiliki hasrat besar untuk mengeksplorasi teknologi
+                        baru dan menerapkannya dalam proyek nyata guna memberikan pengalaman pengguna yang luar biasa.
+                    </p>
+
+                    <p class="text-zinc-400 leading-relaxed">
+                        Sebagai seorang lulusan Teknik Informatika, saya terbiasa menyusun arsitektur kode yang bersih
+                        (clean code) dan efisien, baik untuk sisi frontend, backend, maupun database. Saya sangat aktif
+                        berkontribusi di GitHub untuk mengeksplorasi berbagai open-source code dan berkolaborasi dalam
+                        tim.
+                    </p>
+
+                    <!-- GitHub Stats Dashboard -->
+                    <div class="border border-zinc-800 bg-zinc-900/40 p-5 rounded-xl space-y-4 glow-blue">
+                        <div
+                            class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800/60 pb-3">
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-white fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.577.688.479C19.138 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                                </svg>
+                                <span class="font-bold text-sm text-white">GitHub Activity (@stevanlim)</span>
+                            </div>
+                            <span
+                                class="text-xs text-zinc-400 bg-zinc-850 border border-zinc-800 px-2 py-0.5 rounded">18
+                                Public Repositories</span>
+                        </div>
+
+                        <!-- Interactive Contribution Calendar simulation (Blue Themed) -->
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between text-xs text-zinc-400">
+                                <span>2,483 contributions in the last year</span>
+                                <span class="flex items-center space-x-1">
+                                    <span>Less</span>
+                                    <span class="w-2.5 h-2.5 bg-zinc-850 border border-zinc-800 rounded-sm"></span>
+                                    <span class="w-2.5 h-2.5 bg-blue-950 rounded-sm"></span>
+                                    <span class="w-2.5 h-2.5 bg-blue-800 rounded-sm"></span>
+                                    <span class="w-2.5 h-2.5 bg-blue-600 rounded-sm"></span>
+                                    <span class="w-2.5 h-2.5 bg-blue-400 rounded-sm"></span>
+                                    <span>More</span>
+                                </span>
+                            </div>
+
+                            <!-- Calendar Grid Container -->
+                            <div class="overflow-x-auto pb-1">
+                                <div class="flex space-x-[3px] text-zinc-500 font-mono text-[9px] min-w-[530px]"
+                                    id="github-calendar">
+                                    <!-- Days label -->
+                                    <div class="flex flex-col justify-between pr-1 py-1 text-[8px] h-[85px] w-6">
+                                        <span>Mon</span>
+                                        <span>Wed</span>
+                                        <span>Fri</span>
+                                    </div>
+                                    <!-- Weeks generated dynamically by script -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ZIGZAG SECTION: Education & College (Text Left, Image Right) -->
+        <section id="education"
+            class="container mx-auto px-4 md:px-8 bg-zinc-950/30 py-12 rounded-3xl border border-zinc-900/50">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left: Academic Background -->
+                <div class="lg:col-span-7 space-y-6 order-2 lg:order-1 fade-in-element">
+                    <div class="space-y-2">
+                        <h2 class="text-xs font-semibold tracking-wider text-blue-500 uppercase">Pendidikan Formal</h2>
+                        <h3 class="text-3xl font-bold tracking-tight">Latar Belakang Akademik</h3>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4 border-l-2 border-blue-500 pl-4 py-1">
+                            <div>
+                                <h4 class="text-lg font-bold text-zinc-100">STMIK Pontianak</h4>
+                                <p class="text-sm text-blue-400 font-medium">Program Studi: Teknik Informatika</p>
+                                <p class="text-sm text-zinc-400 mt-1">Peminatan: Web Technology (Web & App Development,
+                                    Programmer)</p>
+                                <p class="text-xs text-zinc-500 mt-0.5">Gelar Kelulusan: Sarjana Komputer (S.Kom.)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-zinc-400 leading-relaxed">
+                        Selama menempuh pendidikan di STMIK Pontianak, saya mendalami peminatan Web Technology secara
+                        mendalam. Pembelajaran terfokus pada rekayasa perangkat lunak, pemrograman berorientasi objek,
+                        struktur data, manajemen basis data relasional dan non-relasional, serta arsitektur pengembangan
+                        web dan aplikasi modern.
+                    </p>
+
+                    <p class="text-zinc-400 leading-relaxed">
+                        Pendidikan ini membekali saya dengan landasan akademis yang kuat untuk memecahkan masalah
+                        komputasi kompleks, menyusun algoritma yang efisien, dan merancang sistem aplikasi skala
+                        enterprise secara terstruktur.
+                    </p>
+                </div>
+
+                <!-- Right: College Photo (2) -->
+                <div class="lg:col-span-5 flex flex-col items-center lg:items-end order-1 lg:order-2 fade-in-element">
+                    <img src="static/stmikpontianak.jpg" alt="STMIK Pontianak Campus"
+                        class="w-[480px] h-[340px] object-cover campus-vignette hover:scale-[1.02]">
+                    <div class="text-center lg:text-right mt-3">
+                        <span class="text-xs font-semibold text-blue-400">STMIK Pontianak</span>
+                        <p class="text-[11px] text-zinc-500">Kampus Teknik Informatika Pilihan Utama di Kalimantan Barat
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. ZIGZAG SECTION: Web Specialization & Skills (Image Left, Text Right) -->
+        <section id="skills" class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left: Profile Photo (3) -->
+                <div class="lg:col-span-5 flex justify-center lg:justify-start order-1 lg:order-1 fade-in-element">
+                    <img src="static/WhatsApp Image 2026-06-27 at 20.09.00.jpeg" alt="Stevan Lim Programming"
+                        class="w-[400px] h-[480px] object-cover image-vignette hover:scale-[1.02]">
+                </div>
+
+                <!-- Right: Web Specialization Details -->
+                <div class="lg:col-span-7 space-y-6 order-2 lg:order-2 fade-in-element">
+                    <div class="space-y-2">
+                        <h2 class="text-xs font-semibold tracking-wider text-blue-500 uppercase">Spesialisasi Web</h2>
+                        <h3 class="text-3xl font-bold tracking-tight">Web Programming & Frameworks</h3>
+                    </div>
+
+                    <p class="text-zinc-400 leading-relaxed">
+                        Keahlian utama saya terfokus pada pengembangan web sisi server (backend) dan sisi klien
+                        (frontend). Saya menguasai SvelteKit dengan tingkat penguasaan mencapai 89%, menjadikannya
+                        kerangka kerja andalan saya untuk membangun aplikasi web reaktif yang cepat dan SEO-friendly.
+                    </p>
+
+                    <!-- Web Skills Progress Bars -->
+                    <div class="space-y-4 pt-2">
+                        <!-- SvelteKit -->
+                        <div class="space-y-1">
+                            <div class="flex items-center justify-between text-sm font-semibold">
+                                <span class="flex items-center gap-2">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/svelte/svelte-original.svg"
+                                        class="w-4 h-4 object-contain" alt="SvelteKit">
+                                    <span>SvelteKit <span
+                                            class="text-[10px] text-amber-400 font-semibold bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded ml-1.5">Keahlian
+                                            Utama</span></span>
+                                </span>
+                                <span class="text-blue-400">89%</span>
+                            </div>
+                            <div class="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full progress-bar-fill"
+                                    style="width: 0%" data-width="89%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Laravel -->
+                        <div class="space-y-1">
+                            <div class="flex items-center justify-between text-sm font-medium">
+                                <span class="flex items-center gap-2">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg"
+                                        class="w-4 h-4 object-contain" alt="Laravel">
+                                    <span>Laravel</span>
+                                </span>
+                                <span class="text-zinc-400">82%</span>
+                            </div>
+                            <div class="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-600 rounded-full progress-bar-fill" style="width: 0%"
+                                    data-width="82%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Next.js & React -->
+                        <div class="space-y-1">
+                            <div class="flex items-center justify-between text-sm font-medium">
+                                <span class="flex items-center gap-2">
+                                    <div class="flex items-center -space-x-1">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg"
+                                            class="w-4 h-4 object-contain rounded-full bg-zinc-800 p-0.5" alt="Next.js">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
+                                            class="w-4 h-4 object-contain" alt="React">
+                                    </div>
+                                    <span>Next.js & React</span>
+                                </span>
+                                <span class="text-zinc-400">80%</span>
+                            </div>
+                            <div class="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-600 rounded-full progress-bar-fill" style="width: 0%"
+                                    data-width="80%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Django -->
+                        <div class="space-y-1">
+                            <div class="flex items-center justify-between text-sm font-medium">
+                                <span class="flex items-center gap-2">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg"
+                                        class="w-4 h-4 object-contain brightness-[2]" alt="Django">
+                                    <span>Django</span>
+                                </span>
+                                <span class="text-zinc-400">70%</span>
+                            </div>
+                            <div class="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-600 rounded-full progress-bar-fill" style="width: 0%"
+                                    data-width="70%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Angular -->
+                        <div class="space-y-1">
+                            <div class="flex items-center justify-between text-sm font-medium">
+                                <span class="flex items-center gap-2">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg"
+                                        class="w-4 h-4 object-contain" alt="Angular">
+                                    <span>Angular</span>
+                                </span>
+                                <span class="text-zinc-400">75%</span>
+                            </div>
+                            <div class="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-600 rounded-full progress-bar-fill" style="width: 0%"
+                                    data-width="75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. ZIGZAG SECTION: App Specialization & Database (Text Left, Image Right) -->
+        <section class="container mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left: App Specialization & Database -->
+                <div class="lg:col-span-7 space-y-6 order-2 lg:order-1 fade-in-element">
+                    <div class="space-y-2">
+                        <h2 class="text-xs font-semibold tracking-wider text-blue-500 uppercase">Spesialisasi Aplikasi &
+                            Basis Data</h2>
+                        <h3 class="text-3xl font-bold tracking-tight">Mobile Apps & Databases Development</h3>
+                    </div>
+
+                    <p class="text-zinc-400 leading-relaxed">
+                        Selain pengembangan web, saya juga berspesialisasi dalam membangun aplikasi mobile multiplatform
+                        dan native. Kerangka kerja mobile utama saya adalah NativeScript dengan tingkat pemahaman 85%,
+                        didukung oleh pengalaman dalam React Native dan Native Android menggunakan Android Studio
+                        (Java/Kotlin).
+                    </p>
+
+                    <!-- App Skills Progress Bars -->
+                    <div class="space-y-4 pt-2">
+                        <!-- NativeScript -->
+                        <div class="space-y-1">
+                            <div class="flex items-center justify-between text-sm font-semibold">
+                                <span class="flex items-center gap-2">
+                                    <img src="https://thf.bing.com/th/id/ODF.hgE3Gh1Pd_MWPiwV5gDYlg?w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2"
+                                        class="w-4 h-4 object-contain" alt="NativeScript">
+                                    <span>NativeScript <span
+                                            class="text-[10px] text-blue-400 font-semibold bg-blue-500/10 border border-blue-500/20 px-1.5 py-0.5 rounded ml-1.5">Spesialisasi
+                                            Mobile</span></span>
+                                </span>
+                                <span class="text-blue-400">85%</span>
+                            </div>
+                            <div class="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full progress-bar-fill"
+                                    style="width: 0%" data-width="85%"></div>
+                            </div>
+                        </div>
+
+                        <!-- React Native -->
+                        <div class="space-y-1">
+                            <div class="flex items-center justify-between text-sm font-medium">
+                                <span class="flex items-center gap-2">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg"
+                                        class="w-4 h-4 object-contain animate-spin-slow" alt="React Native">
+                                    <span>React Native</span>
+                                </span>
+                                <span class="text-zinc-400">78%</span>
+                            </div>
+                            <div class="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-600 rounded-full progress-bar-fill" style="width: 0%"
+                                    data-width="78%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Native Android (Android Studio) -->
+                        <div class="space-y-1">
+                            <div class="flex items-center justify-between text-sm font-medium">
+                                <span class="flex items-center gap-2">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/android/android-original.svg"
+                                        class="w-4 h-4 object-contain" alt="Android Studio">
+                                    <span>Native Android (Android Studio / Java)</span>
+                                </span>
+                                <span class="text-zinc-400">76%</span>
+                            </div>
+                            <div class="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-600 rounded-full progress-bar-fill" style="width: 0%"
+                                    data-width="76%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-zinc-900 space-y-3">
+                        <h4 class="text-sm font-semibold text-zinc-300 flex items-center gap-1.5">
+                            <i data-lucide="database" class="w-4.5 h-4.5 text-blue-400"></i> Basis Data & Infrastruktur
+                        </h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span
+                                class="bg-zinc-900 border border-zinc-850 px-2.5 py-1 rounded text-xs text-zinc-400 font-medium">MySQL
+                                / MariaDB</span>
+                            <span
+                                class="bg-zinc-900 border border-zinc-850 px-2.5 py-1 rounded text-xs text-zinc-400 font-medium">PostgreSQL</span>
+                            <span
+                                class="bg-zinc-900 border border-zinc-850 px-2.5 py-1 rounded text-xs text-zinc-400 font-medium">SQLite</span>
+                            <span
+                                class="bg-zinc-900 border border-zinc-850 px-2.5 py-1 rounded text-xs text-zinc-400 font-medium">REST
+                                API Design</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Profile Photo (4) -->
+                <div class="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2 fade-in-element">
+                    <img src="static/WhatsApp Image 2026-06-27 at 20.09.00 (1).jpeg" alt="Stevan Lim Working"
+                        class="w-[400px] h-[480px] object-cover image-vignette hover:scale-[1.02]">
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Interactive Skills Showcase Section (Grid & Filters) -->
+        <section id="skills-showcase" class="py-20 border-t border-zinc-900 bg-zinc-950/20">
+            <div class="container mx-auto px-4 md:px-8">
+                <!-- Section Header -->
+                <div class="space-y-3 mb-10 text-left max-w-3xl fade-in-element">
+                    <h2 class="text-xs font-semibold tracking-wider text-blue-500 uppercase flex items-center gap-1.5">
+                        <i data-lucide="code-2" class="w-4 h-4"></i> Teknologi & Skills
+                    </h2>
+                    <h3 class="text-3xl font-bold tracking-tight">Keahlian Professional Saya</h3>
+                    <p class="text-zinc-400">Teknologi, kerangka kerja, dan pustaka kode yang saya kuasai dan gunakan
+                        dalam membangun aplikasi web & mobile.</p>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="flex flex-wrap gap-2 md:gap-3 mb-8 justify-start fade-in-element">
+                    <button
+                        class="skill-filter-btn px-4 py-1.5 rounded-full border border-yellow-500 bg-yellow-500 text-zinc-950 font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-yellow-500/20 transition-all duration-300"
+                        data-filter="all">
+                        <span>All</span> <span class="bg-zinc-950/20 px-1.5 py-0.5 rounded-full text-[10px]">36</span>
+                    </button>
+                    <button
+                        class="skill-filter-btn px-4 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/60 hover:bg-zinc-800 text-zinc-400 font-semibold text-xs flex items-center gap-1.5 transition-all duration-300"
+                        data-filter="main">
+                        <span>Main</span> <span class="bg-zinc-800/80 px-1.5 py-0.5 rounded-full text-[10px]">6</span>
+                    </button>
+                    <button
+                        class="skill-filter-btn px-4 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/60 hover:bg-zinc-800 text-zinc-400 font-semibold text-xs flex items-center gap-1.5 transition-all duration-300"
+                        data-filter="frontend">
+                        <span>Frontend</span> <span
+                            class="bg-zinc-800/80 px-1.5 py-0.5 rounded-full text-[10px]">16</span>
+                    </button>
+                    <button
+                        class="skill-filter-btn px-4 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/60 hover:bg-zinc-800 text-zinc-400 font-semibold text-xs flex items-center gap-1.5 transition-all duration-300"
+                        data-filter="backend">
+                        <span>Backend</span> <span
+                            class="bg-zinc-800/80 px-1.5 py-0.5 rounded-full text-[10px]">9</span>
+                    </button>
+                    <button
+                        class="skill-filter-btn px-4 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/60 hover:bg-zinc-800 text-zinc-400 font-semibold text-xs flex items-center gap-1.5 transition-all duration-300"
+                        data-filter="mobile">
+                        <span>Mobile</span> <span class="bg-zinc-800/80 px-1.5 py-0.5 rounded-full text-[10px]">6</span>
+                    </button>
+                    <button
+                        class="skill-filter-btn px-4 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/60 hover:bg-zinc-800 text-zinc-400 font-semibold text-xs flex items-center gap-1.5 transition-all duration-300"
+                        data-filter="database">
+                        <span>Database</span> <span
+                            class="bg-zinc-800/80 px-1.5 py-0.5 rounded-full text-[10px]">4</span>
+                    </button>
+                    <button
+                        class="skill-filter-btn px-4 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/60 hover:bg-zinc-800 text-zinc-400 font-semibold text-xs flex items-center gap-1.5 transition-all duration-300"
+                        data-filter="tools">
+                        <span>Tools</span> <span class="bg-zinc-800/80 px-1.5 py-0.5 rounded-full text-[10px]">10</span>
+                    </button>
+                </div>
+
+                <!-- Skills Grid Container -->
+                <div id="skills-grid"
+                    class="flex flex-wrap gap-3 justify-start items-start min-h-[150px] fade-in-element">
+                    <!-- Cards are dynamically rendered by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 bg-zinc-950/40 border-t border-zinc-900">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <h2 class="text-xs font-semibold tracking-wider text-blue-500 uppercase">Karya & Portfolio</h2>
+                <h3 class="text-3xl font-bold tracking-tight">Proyek Yang Pernah Saya Buat</h3>
+                <p class="text-zinc-400">Kumpulan proyek pengembangan sistem informasi, website, dan platform e-commerce
+                    yang telah saya selesaikan.</p>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Project 1 -->
+                <div
+                    class="group border border-zinc-800/80 bg-zinc-900/30 rounded-xl overflow-hidden glow-hover transition-all duration-300 flex flex-col h-full fade-in-element">
+                    <div class="relative overflow-hidden aspect-video border-b border-zinc-800">
+                        <img src="static/stokbarang.png" alt="Stok Barang Toupss Computer Screenshot"
+                            class="w-full h-full object-cover transition duration-500 group-hover:scale-[1.04]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                            <span
+                                class="text-xs text-zinc-300 bg-zinc-900/90 border border-zinc-800 px-2 py-1 rounded">SvelteKit
+                                + MySQL</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow space-y-4">
+                        <div class="space-y-2">
+                            <h4 class="text-lg font-bold group-hover:text-blue-400 transition-colors">Pencatatan Traffic
+                                Barang</h4>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Sistem manajemen stok inventaris untuk Pencatatan Traffic Barang - PT. Segi Tiga Asia.
+                                Mempermudah melacak transaksi
+                                barang masuk, barang keluar, produk, kategori, data supplier, serta pencatatan audit log
+                                otomatis dan laporan penjualan.
+                            </p>
+                        </div>
+                        <div class="pt-2 mt-auto flex items-center justify-between">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span
+                                    class="bg-blue-950/40 text-blue-400 text-[10px] font-semibold border border-blue-900/30 px-2 py-0.5 rounded">SvelteKit</span>
+                                <span
+                                    class="bg-zinc-850 text-zinc-400 text-[10px] border border-zinc-800 px-2 py-0.5 rounded">MySQL</span>
+                                <span
+                                    class="bg-zinc-850 text-zinc-400 text-[10px] border border-zinc-800 px-2 py-0.5 rounded">Tailwind
+                                    CSS</span>
+                            </div>
+                            <a href="https://stokbarang.toupsscomputer.store" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center space-x-1 text-xs text-blue-400 font-semibold hover:underline">
+                                <span>Kunjungi</span>
+                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div
+                    class="group border border-zinc-800/80 bg-zinc-900/30 rounded-xl overflow-hidden glow-hover transition-all duration-300 flex flex-col h-full fade-in-element">
+                    <div class="relative overflow-hidden aspect-video border-b border-zinc-800">
+                        <img src="static/toupsscomputer.png" alt="Toupss Computer Store Screenshot"
+                            class="w-full h-full object-cover transition duration-500 group-hover:scale-[1.04]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                            <span
+                                class="text-xs text-zinc-300 bg-zinc-900/90 border border-zinc-800 px-2 py-1 rounded">Digital
+                                Product & IT Service</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow space-y-4">
+                        <div class="space-y-2">
+                            <h4 class="text-lg font-bold group-hover:text-blue-400 transition-colors">Toup SS Computer
+                                Store</h4>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Platform website utama untuk Toup SS Computer Store. Berfungsi sebagai katalog produk
+                                isi ulang pulsa, voucher game, isi token listrik, dan portal kontak bagi pelanggan
+                                untuk berinteraksi langsung.
+                            </p>
+                        </div>
+                        <div class="pt-2 mt-auto flex items-center justify-between">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span
+                                    class="bg-blue-950/40 text-blue-400 text-[10px] font-semibold border border-blue-900/30 px-2 py-0.5 rounded">Web
+                                    App</span>
+                                <span
+                                    class="bg-zinc-850 text-zinc-400 text-[10px] border border-zinc-800 px-2 py-0.5 rounded">SvelteKit</span>
+                                <span
+                                    class="bg-zinc-850 text-zinc-400 text-[10px] border border-zinc-800 px-2 py-0.5 rounded">Tailwind
+                                    CSS</span>
+                                <span
+                                    class="bg-zinc-850 text-zinc-400 text-[10px] border border-zinc-800 px-2 py-0.5 rounded">Native
+                                    Script</span>
+                                <span
+                                    class="bg-zinc-850 text-zinc-400 text-[10px] border border-zinc-800 px-2 py-0.5 rounded">Digital
+                                    Product</span>
+                            </div>
+                            <a href="https://toupsscomputer.store" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center space-x-1 text-xs text-blue-400 font-semibold hover:underline">
+                                <span>Kunjungi</span>
+                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div
+                    class="group border border-zinc-800/80 bg-zinc-900/30 rounded-xl overflow-hidden glow-hover transition-all duration-300 flex flex-col h-full fade-in-element">
+                    <div class="relative overflow-hidden aspect-video border-b border-zinc-800">
+                        <img src="static/hadisscomp.png" alt="Hadis SComp Screenshot"
+                            class="w-full h-full object-cover transition duration-500 group-hover:scale-[1.04]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                            <span
+                                class="text-xs text-zinc-300 bg-zinc-900/90 border border-zinc-800 px-2 py-1 rounded">PHP
+                                Platform</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow space-y-4">
+                        <div class="space-y-2">
+                            <h4 class="text-lg font-bold group-hover:text-blue-400 transition-colors">SS Computer Portal
+                            </h4>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Sistem aplikasi web kustom untuk SS Computer yang berfokus pada efisiensi layanan,
+                                registrasi klien, serta pengelolaan katalog servis untuk kebutuhan teknologi komputer
+                                terintegrasi.
+                            </p>
+                        </div>
+                        <div class="pt-2 mt-auto flex items-center justify-between">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span
+                                    class="bg-blue-950/40 text-blue-400 text-[10px] font-semibold border border-blue-900/30 px-2 py-0.5 rounded">PHP</span>
+                                <span
+                                    class="bg-zinc-850 text-zinc-400 text-[10px] border border-zinc-800 px-2 py-0.5 rounded">Bootstrap</span>
+                                <span
+                                    class="bg-zinc-850 text-zinc-400 text-[10px] border border-zinc-800 px-2 py-0.5 rounded">Client
+                                    Portal</span>
+                            </div>
+                            <a href="https://hadisscomp8899.com/index.php" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center space-x-1 text-xs text-blue-400 font-semibold hover:underline">
+                                <span>Kunjungi</span>
+                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Kustore Figma -->
+                <div
+                    class="group border border-zinc-800/80 bg-zinc-900/30 rounded-xl overflow-hidden glow-hover transition-all duration-300 flex flex-col h-full fade-in-element">
+                    <div class="relative overflow-hidden aspect-video border-b border-zinc-800">
+                        <img src="static/kustore.png" alt="KUSTORE App Top Up Screenshot"
+                            class="w-full h-full object-cover transition duration-500 group-hover:scale-[1.04]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                            <span
+                                class="text-xs text-zinc-300 bg-zinc-900/90 border border-zinc-800 px-2 py-1 rounded">Figma
+                                UI/UX Design</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow space-y-4">
+                        <div class="space-y-2">
+                            <h4 class="text-lg font-bold group-hover:text-blue-400 transition-colors">Kustore - App Top
+                                Up</h4>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Desain antarmuka pengguna (UI/UX) untuk aplikasi mobile top-up game Kustore di Figma.
+                                Mengutamakan kemudahan navigasi, estetika modern, dan alur checkout yang intuitif.
+                            </p>
+                        </div>
+                        <div class="pt-2 mt-auto flex items-center justify-between">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span
+                                    class="bg-blue-950/40 text-blue-400 text-[10px] font-semibold border border-blue-900/30 px-2 py-0.5 rounded">Figma</span>
+                                <span
+                                    class="bg-zinc-850 text-zinc-400 text-[10px] border border-zinc-800 px-2 py-0.5 rounded">UI/UX
+                                    Design</span>
+                                <span
+                                    class="bg-zinc-850 text-zinc-400 text-[10px] border border-zinc-800 px-2 py-0.5 rounded">Mobile
+                                    UI</span>
+                            </div>
+                            <a href="https://www.figma.com/design/0a3xf4Es9rulq8jTNhysJx/KUSTORE---APPS-TOP-UP?m=auto&t=JR60opJ7bcSbhUCf-6"
+                                target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center space-x-1 text-xs text-blue-400 font-semibold hover:underline">
+                                <span>Buka Figma</span>
+                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: Indoflazz Figma -->
+                <div
+                    class="group border border-zinc-800/80 bg-zinc-900/30 rounded-xl overflow-hidden glow-hover transition-all duration-300 flex flex-col h-full fade-in-element">
+                    <div class="relative overflow-hidden aspect-video border-b border-zinc-800">
+                        <img src="static/indoflazz.png" alt="INDOFLAZZ App Top Up Screenshot"
+                            class="w-full h-full object-cover transition duration-500 group-hover:scale-[1.04]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                            <span
+                                class="text-xs text-zinc-300 bg-zinc-900/90 border border-zinc-800 px-2 py-1 rounded">Figma
+                                UI/UX Design</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow space-y-4">
+                        <div class="space-y-2">
+                            <h4 class="text-lg font-bold group-hover:text-blue-400 transition-colors">Indoflazz - App
+                                Top Up</h4>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Prototipe desain antarmuka aplikasi top-up Indoflazz di Figma. Memadukan estetika dark
+                                mode yang modern dengan tata letak informasi produk game yang ringkas dan informatif.
+                            </p>
+                        </div>
+                        <div class="pt-2 mt-auto flex items-center justify-between">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span
+                                    class="bg-blue-950/40 text-blue-400 text-[10px] font-semibold border border-blue-900/30 px-2 py-0.5 rounded">Figma</span>
+                                <span
+                                    class="bg-zinc-850 text-zinc-400 text-[10px] border border-zinc-800 px-2 py-0.5 rounded">UI/UX
+                                    Design</span>
+                                <span
+                                    class="bg-zinc-850 text-zinc-400 text-[10px] border border-zinc-800 px-2 py-0.5 rounded">Mobile
+                                    UI</span>
+                            </div>
+                            <a href="https://www.figma.com/design/cOw38OiRVTzcFC0OehxsHD/INDOFLAZZ---APPS-TOP-UP?node-id=0-1&t=IRyFyWObC5rIqOpH-1"
+                                target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center space-x-1 text-xs text-blue-400 font-semibold hover:underline">
+                                <span>Buka Figma</span>
+                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6: KPR Rumah Impian Figma -->
+                <div
+                    class="group border border-zinc-800/80 bg-zinc-900/30 rounded-xl overflow-hidden glow-hover transition-all duration-300 flex flex-col h-full fade-in-element">
+                    <div class="relative overflow-hidden aspect-video border-b border-zinc-800">
+                        <img src="static/kpr_rumah_impian.png" alt="KPR Rumah Impian Landing Page Screenshot"
+                            class="w-full h-full object-cover transition duration-500 group-hover:scale-[1.04]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+                            <span
+                                class="text-xs text-zinc-300 bg-zinc-900/90 border border-zinc-800 px-2 py-1 rounded">Figma
+                                Web Design</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow space-y-4">
+                        <div class="space-y-2">
+                            <h4 class="text-lg font-bold group-hover:text-blue-400 transition-colors">Landing Page KPR
+                                Rumah Impian</h4>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Desain web landing page KPR Rumah Impian di Figma. Mengedepankan kalkulator simulasi
+                                cicilan rumah yang user-friendly, kejelasan visual properti, serta ajakan bertindak
+                                (CTA) yang menarik.
+                            </p>
+                        </div>
+                        <div class="pt-2 mt-auto flex items-center justify-between">
+                            <div class="flex gap-1.5 flex-wrap">
+                                <span
+                                    class="bg-blue-950/40 text-blue-400 text-[10px] font-semibold border border-blue-900/30 px-2 py-0.5 rounded">Figma</span>
+                                <span
+                                    class="bg-zinc-850 text-zinc-400 text-[10px] border border-zinc-800 px-2 py-0.5 rounded">Web
+                                    Design</span>
+                                <span
+                                    class="bg-zinc-850 text-zinc-400 text-[10px] border border-zinc-800 px-2 py-0.5 rounded">Landing
+                                    Page</span>
+                            </div>
+                            <a href="https://www.figma.com/design/eGkUYijgJV3PHujg5lsHFT/Landing-Page-KPR-Rumah-Impian?node-id=0-1&t=HvSnZHm8n1D0EjFh-0"
+                                target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center space-x-1 text-xs text-blue-400 font-semibold hover:underline">
+                                <span>Buka Figma</span>
+                                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-zinc-950 border-t border-zinc-900">
+        <div class="container mx-auto px-4 md:px-8 max-w-5xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <!-- Left: Contact Details -->
+                <div class="lg:col-span-5 space-y-6 fade-in-element">
+                    <div class="space-y-2">
+                        <h2 class="text-xs font-semibold tracking-wider text-blue-500 uppercase">Kontak Saya</h2>
+                        <h3 class="text-3xl font-bold tracking-tight">Hubungi Stevan</h3>
+                        <p class="text-zinc-400 text-sm leading-relaxed">
+                            Apakah Anda memiliki pertanyaan atau ingin berkolaborasi dalam proyek web atau aplikasi?
+                            Silakan hubungi saya melalui jalur kontak di bawah ini.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4 pt-4">
+                        <!-- Location -->
+                        <div class="flex items-center space-x-3.5 bg-zinc-900/40 border border-zinc-850 p-4 rounded-xl">
+                            <div class="p-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-lg">
+                                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs text-zinc-500 font-medium">Lokasi</h4>
+                                <p class="text-sm font-semibold text-zinc-200">Pontianak, Kalimantan Barat, Indonesia
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="flex items-center space-x-3.5 bg-zinc-900/40 border border-zinc-850 p-4 rounded-xl">
+                            <div class="p-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-lg">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs text-zinc-500 font-medium">Email</h4>
+                                <p class="text-sm font-semibold text-zinc-200">stevanlim123@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <a href="https://github.com/stevanlim" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center space-x-3.5 bg-zinc-900/40 border border-zinc-850 p-4 rounded-xl hover:border-blue-500/30 transition-all group">
+                            <div class="p-2 bg-zinc-800 border border-zinc-700 text-white rounded-lg">
+                                <svg class="w-5 h-5 fill-current text-white" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.577.688.479C19.138 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                                </svg>
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="text-xs text-zinc-500 font-medium">GitHub</h4>
+                                <p
+                                    class="text-sm font-semibold text-zinc-200 group-hover:text-blue-400 transition-colors">
+                                    github.com/stevanlim</p>
+                            </div>
+                            <i data-lucide="arrow-up-right"
+                                class="w-4 h-4 text-zinc-500 group-hover:text-blue-400 transition-colors"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Contact Form -->
+                <div
+                    class="lg:col-span-7 bg-zinc-900/20 border border-zinc-850 p-8 rounded-2xl glow-blue fade-in-element">
+                    <form id="contact-form" class="space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label for="name"
+                                    class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Nama
+                                    Lengkap</label>
+                                <input type="text" id="name" required
+                                    class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-200 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                                    placeholder="Masukkan nama Anda">
+                            </div>
+                            <div class="space-y-2">
+                                <label for="email"
+                                    class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Alamat
+                                    Email</label>
+                                <input type="email" id="email" required
+                                    class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-200 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                                    placeholder="nama@email.com">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="subject"
+                                class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Subjek</label>
+                            <input type="text" id="subject" required
+                                class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-200 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                                placeholder="Topik pembicaraan">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="message"
+                                class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Pesan</label>
+                            <textarea id="message" required rows="5"
+                                class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm text-zinc-200 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none"
+                                placeholder="Tuliskan pesan Anda di sini..."></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full inline-flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-lg transition-all shadow-md hover:shadow-blue-500/10">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>Kirim Pesan</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-zinc-900 bg-zinc-950 py-12 text-center text-zinc-500 text-sm">
+        <div class="container mx-auto px-4 md:px-8 space-y-4">
+            <div class="flex items-center justify-center space-x-4 text-zinc-400">
+                <a href="https://github.com/stevanlim" target="_blank" rel="noopener noreferrer"
+                    class="hover:text-blue-400 transition-colors text-white">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.577.688.479C19.138 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                    </svg>
+                </a>
+                <a href="mailto:stevan.lim@gmail.com" class="hover:text-blue-400 transition-colors">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                </a>
+            </div>
+            <p>© 2026 Stevan Lim. Hak Cipta Dilindungi Undang-Undang.</p>
+            <p class="text-xs text-zinc-600 font-mono">Dibuat menggunakan HTML, Tailwind CSS, & Lucide Icons.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top"
+        class="fixed bottom-6 right-6 p-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full shadow-lg transition-all opacity-0 pointer-events-none z-50">
+        <i data-lucide="chevron-up" class="w-5 h-5"></i>
+    </button>
+
+    <!-- Scripts Section -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 1. Mobile Menu Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const isHidden = mobileMenu.classList.contains('hidden');
+            menuIcon.setAttribute('data-lucide', isHidden ? 'menu' : 'x');
+            lucide.createIcons();
+        });
+
+        // Close mobile menu when a link is clicked
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // 2. Typewriter Effect for Hero Subtitle
+        const roles = [
+            "Full-Stack Programmer",
+            "SvelteKit Expert (89%)",
+            "NativeScript Developer (85%)",
+            "Web & Mobile Application Architect"
+        ];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const roleTextElement = document.getElementById('role-text');
+
+        function type() {
+            const currentRole = roles[roleIndex];
+            if (isDeleting) {
+                roleTextElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                roleTextElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typingSpeed = isDeleting ? 40 : 80;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                // Pause at the end of word
+                typingSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typingSpeed = 500;
+            }
+
+            setTimeout(type, typingSpeed);
+        }
+
+        // Start typewriter
+        setTimeout(type, 1000);
+
+        // 3. Fade-in on Scroll Animation using Intersection Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Unobserve after showing
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const fadeElements = document.querySelectorAll('.fade-in-element');
+        fadeElements.forEach(el => observer.observe(el));
+
+        // 4. Back to Top Button visibility
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.remove('opacity-100');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 5. Dynamic GitHub Contribution Calendar Generator
+        const calendarContainer = document.getElementById('github-calendar');
+
+        // Months labels
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        // Generate mock data representing high active commit levels
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - 365); // 1 year ago
+
+        let currentWeekCol = document.createElement('div');
+        currentWeekCol.className = 'flex flex-col space-y-[3px]';
+
+        // We will generate 53 columns representing weeks
+        for (let i = 0; i < 365; i++) {
+            const date = new Date(startDate);
+            date.setDate(startDate.getDate() + i);
+
+            // Random contribution counts, heavier on weekdays and specific periods
+            const dayOfWeek = date.getDay();
+            let commitCount = 0;
+
+            // Weekend logic (less contributions)
+            const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+            const rand = Math.random();
+
+            if (isWeekend) {
+                if (rand > 0.6) commitCount = Math.floor(Math.random() * 3);
+            } else {
+                if (rand > 0.05) commitCount = Math.floor(Math.random() * 12);
+            }
+
+            // Map commit count to color shade
+            let bgClass = 'bg-zinc-850 border border-zinc-800'; // 0
+            if (commitCount > 0 && commitCount <= 2) bgClass = 'bg-blue-950';
+            else if (commitCount > 2 && commitCount <= 5) bgClass = 'bg-blue-800';
+            else if (commitCount > 5 && commitCount <= 10) bgClass = 'bg-blue-600';
+            else if (commitCount > 10) bgClass = 'bg-blue-400';
+
+            const cell = document.createElement('div');
+            cell.className = `w-2.5 h-2.5 rounded-sm relative github-cell ${bgClass}`;
+
+            // Add custom tooltip
+            const dateStr = date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+            const tooltip = document.createElement('div');
+            tooltip.className = 'github-tooltip bg-zinc-950 text-white border border-zinc-800 rounded px-2.5 py-1 text-[10px] font-sans font-medium whitespace-nowrap shadow-xl pointer-events-none';
+            tooltip.textContent = `${commitCount} kontribusi pada ${dateStr}`;
+            cell.appendChild(tooltip);
+
+            currentWeekCol.appendChild(cell);
+
+            // If day is Saturday (end of column week) or we reached the last item
+            if (dayOfWeek === 6 || i === 364) {
+                calendarContainer.appendChild(currentWeekCol);
+                currentWeekCol = document.createElement('div');
+                currentWeekCol.className = 'flex flex-col space-y-[3px]';
+            }
+        }
+
+        // --- Anime.js Custom Visual Effects (Inspired by Anime.js) ---
+
+        // 6. Interactive Anime.js Grid Background
+        const heroGrid = document.getElementById('hero-grid');
+        if (heroGrid) {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const cellSize = 50; // optimized grid element size
+            const cols = Math.floor(width / cellSize);
+            const rows = Math.floor(height / cellSize);
+            const numCells = cols * rows;
+
+            heroGrid.style.display = 'grid';
+            heroGrid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
+            heroGrid.style.gridTemplateRows = `repeat(${rows}, minmax(0, 1fr))`;
+            heroGrid.style.gap = '8px';
+            heroGrid.style.width = '105%';
+            heroGrid.style.height = '105%';
+            heroGrid.style.position = 'absolute';
+            heroGrid.style.left = '-2.5%';
+            heroGrid.style.top = '-2.5%';
+            heroGrid.style.justifyContent = 'center';
+            heroGrid.style.alignContent = 'center';
+
+            for (let i = 0; i < numCells; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'w-6 h-6 rounded bg-blue-500/[0.04] cursor-crosshair transition-colors duration-300 hover:bg-blue-400/40 grid-item';
+                heroGrid.appendChild(cell);
+            }
+
+            // Staggered ripple effect on mouse move over the grid
+            heroGrid.addEventListener('mousemove', (e) => {
+                const target = document.elementFromPoint(e.clientX, e.clientY);
+                if (target && target.classList.contains('grid-item')) {
+                    // Check if it's already running a ripple to prevent duplicate calls in the same frame
+                    if (target.dataset.rippling === "true") return;
+                    target.dataset.rippling = "true";
+                    setTimeout(() => { target.dataset.rippling = "false"; }, 150);
+
+                    const index = Array.from(heroGrid.children).indexOf(target);
+                    anime({
+                        targets: '.grid-item',
+                        scale: [
+                            { value: 1.35, easing: 'easeOutSine', duration: 250 },
+                            { value: 1, easing: 'easeInOutQuad', duration: 600 }
+                        ],
+                        opacity: [
+                            { value: 0.6, easing: 'easeOutSine', duration: 250 },
+                            { value: 0.15, easing: 'easeInOutQuad', duration: 600 }
+                        ],
+                        backgroundColor: [
+                            { value: 'rgba(59, 130, 246, 0.3)', duration: 250 },
+                            { value: 'rgba(59, 130, 246, 0.04)', duration: 600 }
+                        ],
+                        delay: anime.stagger(15, { grid: [cols, rows], from: index })
+                    });
+                }
+            });
+
+            // Initial stagger pop-in on load
+            anime({
+                targets: '.grid-item',
+                scale: [0.1, 1],
+                opacity: [0, 0.15],
+                delay: anime.stagger(8, { grid: [cols, rows], from: 'center' }),
+                duration: 1000,
+                easing: 'easeOutBack'
+            });
+        }
+
+        // 7. Hero Content Entrance Stagger Animation
+        anime({
+            targets: '.hero-animate',
+            translateY: [40, 0],
+            opacity: [0, 1],
+            delay: anime.stagger(150, { start: 300 }),
+            duration: 1200,
+            easing: 'easeOutExpo'
+        });
+
+        // 8. Progress Bars Slide-in Animation on scroll
+        const progressObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBar = entry.target;
+                    const targetWidth = progressBar.getAttribute('data-width');
+                    anime({
+                        targets: progressBar,
+                        width: targetWidth,
+                        duration: 1800,
+                        easing: 'easeOutExpo'
+                    });
+                    observer.unobserve(progressBar);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.progress-bar-fill').forEach(el => progressObserver.observe(el));
+
+        // 9. GitHub Contributions Stagger Pop on load
+        anime({
+            targets: '#github-calendar .github-cell',
+            scale: [0.2, 1],
+            opacity: [0, 1],
+            delay: anime.stagger(1.5, { grid: [53, 7], from: 'center' }),
+            duration: 1000,
+            easing: 'easeOutBack'
+        });
+        // 10. Skills Filter and Rendering Logic
+        const skillsData = [
+            { name: 'SvelteKit', category: ['main', 'frontend'], color: 'from-orange-500/20 to-orange-600/10 border-orange-500/30 text-orange-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/svelte/svelte-original.svg' },
+            { name: 'NativeScript', category: ['main', 'mobile'], color: 'from-blue-500/20 to-indigo-600/10 border-blue-500/30 text-blue-400', icon: 'https://thf.bing.com/th/id/ODF.hgE3Gh1Pd_MWPiwV5gDYlg?w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2' },
+            { name: 'Laravel', category: ['main', 'backend'], color: 'from-red-500/20 to-red-600/10 border-red-500/30 text-red-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg' },
+            { name: 'Next.js', category: ['main', 'frontend', 'backend'], color: 'from-zinc-300/10 to-zinc-500/5 border-zinc-700 text-zinc-300', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg' },
+            { name: 'React.js', category: ['main', 'frontend'], color: 'from-cyan-500/20 to-cyan-600/10 border-cyan-500/30 text-cyan-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
+            { name: 'Android Studio', category: ['main', 'mobile'], color: 'from-green-500/20 to-green-600/10 border-green-500/30 text-green-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/android/android-original.svg' },
+
+            // Frontend
+            { name: 'HTML5', category: ['frontend'], color: 'from-orange-600/20 to-orange-700/10 border-orange-600/30 text-orange-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg' },
+            { name: 'CSS3', category: ['frontend'], color: 'from-blue-600/20 to-blue-700/10 border-blue-600/30 text-blue-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg' },
+            { name: 'Bootstrap', category: ['frontend'], color: 'from-purple-600/20 to-purple-700/10 border-purple-600/30 text-purple-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg' },
+            { name: 'TailwindCSS', category: ['frontend'], color: 'from-teal-500/20 to-teal-600/10 border-teal-500/30 text-teal-300', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
+            { name: 'JavaScript', category: ['frontend'], color: 'from-yellow-500/20 to-yellow-600/10 border-yellow-500/30 text-yellow-300', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg' },
+            { name: 'TypeScript', category: ['frontend'], color: 'from-blue-500/20 to-blue-600/10 border-blue-500/30 text-blue-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg' },
+            { name: 'Vite', category: ['frontend'], color: 'from-purple-500/20 to-pink-600/10 border-purple-500/30 text-purple-300', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vite/vite-original.svg' },
+            { name: 'Astro.js', category: ['frontend'], color: 'from-indigo-500/20 to-purple-600/10 border-indigo-500/30 text-indigo-300', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/astro/astro-original.svg' },
+            { name: 'Angular', category: ['frontend'], color: 'from-red-600/20 to-red-700/10 border-red-600/30 text-red-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg' },
+            { name: 'Redux', category: ['frontend'], color: 'from-purple-600/20 to-indigo-600/10 border-purple-600/30 text-purple-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redux/redux-original.svg' },
+            { name: 'Framer Motion', category: ['frontend'], color: 'from-amber-500/20 to-orange-600/10 border-amber-500/30 text-amber-300', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/framermotion/framermotion-original.svg' },
+
+            // Custom SVGs or simple tags for libs without devicon
+            { name: 'Shadcn UI', category: ['frontend'], color: 'from-zinc-300/10 to-zinc-500/5 border-zinc-700 text-zinc-300', customIcon: `<span class="font-mono text-zinc-400 font-bold text-xs">//</span>` },
+            { name: 'NextAuth.js', category: ['backend'], color: 'from-zinc-200/10 to-zinc-400/5 border-zinc-650 text-zinc-300', customIcon: `<svg class="w-3.5 h-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>` },
+            { name: 'TanStack', category: ['tools'], color: 'from-amber-600/20 to-red-600/10 border-amber-600/30 text-amber-400', customIcon: `<svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 22h20L12 2zm0 4.5L18.5 18H5.5L12 6.5z"/></svg>` },
+            { name: 'Axios', category: ['tools'], color: 'from-purple-600/20 to-indigo-600/10 border-purple-600/30 text-purple-400', customIcon: `<span class="font-bold text-[10px] text-purple-400 font-sans">ex</span>` },
+            { name: 'Zod', category: ['tools'], color: 'from-blue-600/20 to-cyan-600/10 border-blue-600/30 text-blue-300', customIcon: `<svg class="w-3.5 h-3.5 text-blue-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>` },
+
+            // Backend
+            { name: 'Node.js', category: ['backend'], color: 'from-green-600/20 to-green-700/10 border-green-600/30 text-green-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
+            { name: 'Express.js', category: ['backend'], color: 'from-zinc-300/10 to-zinc-500/5 border-zinc-700 text-zinc-300', customIcon: `<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg" class="w-4 h-4 object-contain invert brightness-[2.5]" alt="Express.js">` },
+            { name: 'PHP', category: ['backend'], color: 'from-indigo-600/20 to-indigo-700/10 border-indigo-600/30 text-indigo-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg' },
+            { name: 'Django', category: ['backend'], color: 'from-emerald-700/20 to-emerald-800/10 border-emerald-700/30 text-emerald-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg' },
+            { name: 'Prisma', category: ['backend'], color: 'from-teal-600/20 to-teal-700/10 border-teal-600/30 text-teal-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prisma/prisma-original.svg' },
+
+            // Mobile
+            { name: 'React Native', category: ['mobile'], color: 'from-cyan-500/20 to-blue-600/10 border-cyan-500/30 text-cyan-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
+            { name: 'Kotlin', category: ['mobile'], color: 'from-purple-500/20 to-orange-600/10 border-purple-500/30 text-purple-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kotlin/kotlin-original.svg' },
+            { name: 'Jetpack Compose', category: ['mobile'], color: 'from-green-500/20 to-teal-600/10 border-green-500/30 text-green-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jetpackcompose/jetpackcompose-original.svg' },
+
+            // Database
+            { name: 'PostgreSQL', category: ['database'], color: 'from-blue-600/20 to-indigo-700/10 border-blue-600/30 text-blue-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg' },
+            { name: 'MySQL', category: ['database'], color: 'from-cyan-600/20 to-blue-700/10 border-cyan-600/30 text-cyan-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg' },
+            { name: 'Firebase', category: ['database'], color: 'from-amber-500/20 to-orange-600/10 border-amber-500/30 text-amber-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg' },
+            { name: 'Supabase', category: ['database', 'backend'], color: 'from-emerald-500/20 to-green-600/10 border-emerald-500/30 text-emerald-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg' },
+
+            // Tools
+            { name: 'Docker', category: ['tools'], color: 'from-blue-500/20 to-blue-600/10 border-blue-500/30 text-blue-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg' },
+            { name: 'npm', category: ['tools'], color: 'from-red-500/20 to-red-600/10 border-red-500/30 text-red-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/npm/npm-original-wordmark.svg' },
+            { name: 'Yarn', category: ['tools'], color: 'from-blue-400/20 to-indigo-500/10 border-blue-400/30 text-blue-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/yarn/yarn-original.svg' },
+            { name: 'Bun', category: ['tools'], color: 'from-zinc-200/10 to-zinc-400/5 border-zinc-700 text-zinc-300', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bun/bun-original.svg' },
+            { name: 'GitHub', category: ['tools'], color: 'from-zinc-300/10 to-zinc-500/5 border-zinc-700 text-zinc-300', customIcon: `<svg class="w-3.5 h-3.5 text-white fill-current" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.577.688.479C19.138 20.162 22 16.418 22 12c0-5.523-4.477-10-10-10z" /></svg>` },
+            { name: 'Figma (UI/UX)', category: ['tools', 'frontend'], color: 'from-pink-500/20 to-orange-500/10 border-pink-500/30 text-pink-400', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg' }
+        ];
+
+        const skillsContainer = document.getElementById('skills-grid');
+        const filterButtons = document.querySelectorAll('.skill-filter-btn');
+
+        if (skillsContainer) {
+            // Dynamically calculate and update counts on the filter button badges
+            filterButtons.forEach(btn => {
+                const filter = btn.getAttribute('data-filter');
+                const countBadge = btn.querySelector('span:last-child');
+                if (countBadge) {
+                    const count = filter === 'all'
+                        ? skillsData.length
+                        : skillsData.filter(s => s.category.includes(filter)).length;
+                    countBadge.textContent = count;
+                }
+            });
+
+            function renderSkills(filter = 'all') {
+                skillsContainer.innerHTML = '';
+
+                const filteredSkills = filter === 'all'
+                    ? skillsData
+                    : skillsData.filter(s => s.category.includes(filter));
+
+                filteredSkills.forEach(skill => {
+                    const badge = document.createElement('div');
+                    badge.className = `skill-card flex items-center gap-2 px-3.5 py-1.5 rounded-full border bg-zinc-900/40 backdrop-blur-sm transition-all duration-300 hover:bg-zinc-900/80 hover:scale-[1.04] cursor-default ${skill.color}`;
+
+                    if (skill.icon) {
+                        const img = document.createElement('img');
+                        img.src = skill.icon;
+                        img.alt = skill.name;
+                        img.className = 'w-4 h-4 object-contain';
+                        badge.appendChild(img);
+                    } else if (skill.customIcon) {
+                        const iconSpan = document.createElement('span');
+                        iconSpan.innerHTML = skill.customIcon;
+                        iconSpan.className = 'flex items-center justify-center w-4 h-4';
+                        badge.appendChild(iconSpan);
+                    }
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.textContent = skill.name;
+                    nameSpan.className = 'text-xs sm:text-sm font-semibold tracking-wide';
+                    badge.appendChild(nameSpan);
+
+                    skillsContainer.appendChild(badge);
+                });
+
+                // Trigger Anime.js stagger animation on the rendered cards
+                anime({
+                    targets: '.skill-card',
+                    scale: [0.3, 1],
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    delay: anime.stagger(12, { from: 'first' }),
+                    duration: 500,
+                    easing: 'easeOutBack'
+                });
+            }
+
+            // Initial render
+            renderSkills('all');
+
+            // Add click listeners to filter buttons
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterButtons.forEach(b => {
+                        b.className = 'skill-filter-btn px-4 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/60 hover:bg-zinc-800 text-zinc-400 font-semibold text-xs flex items-center gap-1.5 transition-all duration-300';
+                    });
+
+                    btn.className = 'skill-filter-btn px-4 py-1.5 rounded-full border border-yellow-500 bg-yellow-500 text-zinc-950 font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-yellow-500/20 transition-all duration-300';
+
+                    const filterValue = btn.getAttribute('data-filter');
+                    renderSkills(filterValue);
+                });
+            });
+        }
+
+        // 11. Contact Form Submit Logic via Fetch API to Node.js backend
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const btnText = submitBtn.querySelector('span');
+                const originalText = btnText.textContent;
+
+                // Set loading state
+                submitBtn.disabled = true;
+                btnText.textContent = 'Mengirim...';
+                submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    subject: document.getElementById('subject').value,
+                    message: document.getElementById('message').value
+                };
+
+                try {
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.success) {
+                        alert('Pesan berhasil terkirim! Terima kasih telah menghubungi saya.');
+                        contactForm.reset();
+                    } else {
+                        alert(data.error || 'Terjadi kesalahan saat mengirim pesan.');
+                    }
+                } catch (error) {
+                    console.error('Error submitting form:', error);
+                    alert('Gagal terhubung ke server. Silakan periksa koneksi internet Anda.');
+                } finally {
+                    // Restore button state
+                    submitBtn.disabled = false;
+                    btnText.textContent = originalText;
+                    submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
